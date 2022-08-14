@@ -152,7 +152,7 @@ cy_rslt_t lfs_sd_bd_create(struct lfs_config *lfs_cfg, const lfs_sd_bd_config_t 
                              bd_cfg->data0, bd_cfg->data1, bd_cfg->data2, bd_cfg->data3,
                              bd_cfg->data4, bd_cfg->data5, bd_cfg->data6, bd_cfg->data7,
                              bd_cfg->card_detect, bd_cfg->io_volt_sel, bd_cfg->card_if_pwr_en,
-                             bd_cfg->card_mech_write_prot, bd_cfg->led_ctrl, bd_cfg->card_emmc_reset);
+                             bd_cfg->card_mech_write_prot, bd_cfg->led_ctrl, bd_cfg->card_emmc_reset, NULL);
 
 #if defined(LFS_THREADSAFE)
     if(CY_RSLT_SUCCESS == result)
@@ -335,7 +335,7 @@ int lfs_sd_bd_erase(const struct lfs_config *lfs_cfg, lfs_block_t block)
 
     lfs_sd_bd_config_t *bd_cfg = (lfs_sd_bd_config_t *)(lfs_cfg->context);
 
-    cy_rslt_t result = cyhal_sdhc_erase(&bd_cfg->sdhc_obj, block, ONE_BLOCK);
+    cy_rslt_t result = cyhal_sdhc_erase(&bd_cfg->sdhc_obj, block, ONE_BLOCK, 0);
     int res = GET_INT_RETURN_VALUE(result);
 
     LFS_SD_BD_TRACE("lfs_sd_bd_erase -> %d", res);
